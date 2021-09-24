@@ -1,6 +1,7 @@
 #include <iostream>
 #include <set>
 #include <map>
+#include <cassert>
 
 #include "fmt/format.h"
 
@@ -35,6 +36,10 @@ int main() {
 
     fmt::print("sizeof pair {}, object {}, string {}\n",
                sizeof(std::make_pair(1, Object{})), sizeof(Object), sizeof(std::string));
+
+    const auto& n = mymap[5].name_;
+    fmt::print("get 5's name {}\n", n);
+    assert(n == "5"s);
 
     return 0;
 }
