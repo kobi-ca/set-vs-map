@@ -6,6 +6,35 @@
 
 #include "fmt/format.h"
 
+/**
+ * This exercise came from a code review where the author used map<int, object>
+ * while the int came from the object itself. The question is can we use BST
+ * and reduce the memory footprints by using set and add op< to allow comparison of objects?
+ * This requires op< and few more things.
+ *
+ * An example that shows 2 options to use BST from the Standard library.
+ * one option is std::map with id/object and the other one is std::set
+ * The map has the overhead of storing a pair to get access to the object via id
+ * the set does not have this overhead and in both cases we want to have a semantic
+ * to allow us to get the object via an id as the key.
+ * Also this is the case where the id is part of the object and we take advantage of
+ * it using operator< definition in Object.
+ *
+ * Initially, we did not need any ctor for map or set.
+ * But once we had std::set::find(int) like in the example below, we need a conversion operator.
+ *
+ * No need to use std::less<> in set. this is already done by default.
+ *
+ * std::less is a template struct with operator() that calls op< if such exists
+ * for the type T - Object in our case.
+ * Or, you can just have your own function/functor that will mimic std::less.
+ *
+ * Once we needed the std::set::find(int), we needed a conversion constructor which
+ * makes this object and non-aggregate anymore. and we needed to bring in =default of empty ctor
+ * because of sizeof of std::pair (FIXME this should change)
+ * and also we brought in the id/string constructor
+ */
+
 namespace {
     struct Object final {
         Object() = default;
