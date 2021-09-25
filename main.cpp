@@ -16,14 +16,8 @@ namespace {
         bool operator<(const Object& o) const noexcept {
             return id_ < o.id_;
         }
-        friend bool operator<(const int id, const Object& o) noexcept {
-            return id < o.id_;
-        }
     };
 }
-
-
-
 
 void add_new(std::map<int, Object>& m, Object obj) {
     m.insert(std::make_pair(obj.id_, std::move(obj)));
