@@ -33,11 +33,11 @@ void add_new(std::map<int, Object>& m, const int id, const std::string& name) {
     m.insert(std::make_pair(id, Object{id, name}));
 }
 
-void add_new(std::set<Object, std::less<>>& s, Object obj) {
+void add_new(std::set<Object>& s, Object obj) {
     s.insert(std::move(obj));
 }
 
-void add_new(std::set<Object, std::less<>>& s, const int id, const std::string& name) {
+void add_new(std::set<Object>& s, const int id, const std::string& name) {
     s.insert(Object{id, name});
 }
 
@@ -63,7 +63,7 @@ int main() {
     assert(n == "5"s);
 
     // set
-    std::set<Object, std::less<>> myset;
+    std::set<Object> myset;
     add_new(myset, Object{1, "1"s});
     add_new(myset, 5, "5"s);
     add_new(myset, 3, "3"s);
