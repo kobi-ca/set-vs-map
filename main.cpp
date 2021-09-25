@@ -38,6 +38,7 @@
 namespace {
     struct Object final {
         Object() = default;
+        // cannot make it explicit since we need it as a conversion operator
         Object(const int id) : id_(id) {}
         Object(const int id, std::string n) : id_(id), name_(std::move(n)) {}
         int id_{};
@@ -79,7 +80,7 @@ int main() {
     }
 
     fmt::print("sizeof pair {}, object {}, string {}\n",
-               sizeof(std::make_pair(1, Object{})), sizeof(Object), sizeof(std::string));
+               sizeof(std::pair<int, Object>), sizeof(Object), sizeof(std::string));
 
     const auto& n = mymap[5].name_;
     fmt::print("get 5's name {}\n", n);
