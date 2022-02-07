@@ -38,8 +38,6 @@
 namespace {
     struct Object final {
         Object() = default;
-        // cannot make it explicit since we need it as a conversion operator
-        Object(const int id) : id_(id) {}
         Object(const int id, std::string n) : id_(id), name_(std::move(n)) {}
         int id_{};
         std::string name_;
@@ -47,6 +45,10 @@ namespace {
             return id_ < o.id_;
         }
     };
+}
+
+bool operator<(const int id, const Object& obj) {
+    return id < obj.id_;
 }
 
 void add_new(std::map<int, Object>& m, Object obj) {
@@ -87,7 +89,7 @@ int main() {
     assert(n == "5"s);
 
     // set
-    std::set<Object> myset;
+    std::set<Object, std::less<>> myset;
     add_new(myset, Object{1, "1"s});
     add_new(myset, 5, "5"s);
     add_new(myset, 3, "3"s);
